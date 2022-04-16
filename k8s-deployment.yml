@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mf-login
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mf-login
+  template:
+    metadata:
+      labels:
+        app: mf-login
+        version: v1
+    spec:
+      containers:
+        - name: mf-login
+          image: gcr.io/vas-qr/mf/login
+          ports:
+            - containerPort: 80

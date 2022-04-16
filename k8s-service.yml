@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mf-login
+  labels:
+    name: mf-login
+    version: v1
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: mf-login
+  type: ClusterIP
