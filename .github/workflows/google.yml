@@ -46,7 +46,7 @@ jobs:
       with:
         token_format: 'access_token'
         workload_identity_provider: 'projects/630162570845/locations/global/workloadIdentityPools/vas-github/providers/github-provider'
-        service_account: 'github-action-deploy@vas-qr.iam.gserviceaccount.com'
+        service_account: 'github-actions@vas-qr.iam.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
     # - id: 'auth'
