@@ -25,7 +25,6 @@ env:
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: samples # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
-
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
