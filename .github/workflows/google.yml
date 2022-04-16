@@ -54,7 +54,7 @@ jobs:
 
     - name: Docker configuration
       run: |-
-         docker login -u _json_key -p '${{ secrets.GCP_CREDENTIALS }}'}  https://gcr.io
+         docker login -u _json_key -p "$(echo ${{ secrets.GCP_CREDENTIALS }})" }  https://gcr.io
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
