@@ -42,11 +42,11 @@ jobs:
     # Configure Workload Identity Federation and generate an access token.
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
+      uses: 'google-github-actions/auth@v0.4.0'
       with:
         token_format: 'access_token'
         workload_identity_provider: 'projects/630162570845/locations/global/workloadIdentityPools/vas-github/providers/github-provider'
-        service_account: 'test2-598@vas-qr.iam.gserviceaccount.com'
+        service_account: '630162570845-compute@developer.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
     # - id: 'auth'
