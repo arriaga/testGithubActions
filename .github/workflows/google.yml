@@ -92,3 +92,10 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
+    - name: Google Chat Notification
+      uses: Co-qn/google-chat-notification@releases/v1
+      with:
+        name: Build
+        url: https://chat.googleapis.com/v1/spaces/AAAAjJJUfOQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ktVwn_GKgw6P4yinwIsrhkaET2qVcuhK9XUApgB_HJs%3D
+        status: ${{ job.status }}
+        if: always()        
