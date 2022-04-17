@@ -17,7 +17,6 @@ on:
   pull_request:
     branches:
       - main
-      - master
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
