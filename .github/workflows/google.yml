@@ -69,14 +69,14 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "gcr.io/vas-qr/ms/users:$GITHUB_SHA" \
+          --tag "gcr.io/vas-qr/$DEPLOYMENT_NAME:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
-        docker push "gcr.io/vas-qr/ms/users:$GITHUB_SHA"
+        docker push "gcr.io/vas-qr/$DEPLOYMENT_NAME:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
