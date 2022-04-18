@@ -36,9 +36,7 @@ export default function LoginReducer(state = initState, action = {}) {
 
 /** Acciones */
 export const obtainCredentials = (val) => async (dispatch) => {
-
 	try {
-        //const rs = await fetch('');
 		const payload = val
 		
 		dispatch({

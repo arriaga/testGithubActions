@@ -14,14 +14,18 @@
  const CopyPlugin = require('copy-webpack-plugin');
  const { ModuleFederationPlugin } = require('webpack').container;
  const { InjectManifest } = require( 'workbox-webpack-plugin' );
-
+ const { 
+     npm_package_config_path, 
+     npm_package_config_name,
+     npm_package_config_remotes_users 
+ } = process.env;
 
  module.exports = {
      entry: './src/index',
      output: {
          path: path.resolve(__dirname, '../../build'),
          filename: 'js/bundle.js',
-         publicPath: 'auto',
+         publicPath: `${npm_package_config_path}`,
          clean: true
      },
      module: {
@@ -65,9 +69,11 @@
      },
      plugins: [
         new ModuleFederationPlugin({
-            name: 'login',
+            name: npm_package_config_name,
             filename: 'remoteEntry.js',
-            remotes: {},
+            remotes: {
+                users : npm_package_config_remotes_users
+            },
             exposes: {},
             shared: {
                 ...deps,
@@ -94,11 +100,9 @@
                 { from: './src/App/views/img/icon512x512.png', to: 'img/' },
             ]
         }),
-
         new InjectManifest({
             swSrc: './config/serviceWorker/sw.js',
-            swDest: 'sw.js', // this will be created in the build step
-          
-          }),  
+            swDest: 'sw.js'
+        })  
      ]
  }; 

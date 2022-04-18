@@ -13,11 +13,12 @@
  const Dotenv = require('dotenv-webpack');
  const path = require('path');
  const fs = require('fs');
+ const { npm_package_config_port } = process.env;
 
  const devConfig = {
      mode: 'development',
      devServer: {
-         port: 3000,
+         port: npm_package_config_port,
          historyApiFallback: true,
          open: '/'
      },

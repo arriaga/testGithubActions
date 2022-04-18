@@ -7,6 +7,14 @@
     "start": "webpack serve --config config/webpack/webpack.dev.js",
     "build": "webpack --config config/webpack/webpack.dev.js"
   },
+  "config": { 
+    "path": "https://vas1.qr.liverpool.arr1aga.com/", 
+    "name": "login", 
+    "port": "3000",
+    "remotes": {
+      "users" : "users@https://vas1.qr.liverpool.arr1aga.com/users/remoteEntry.js"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
