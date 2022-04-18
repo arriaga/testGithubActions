@@ -49,7 +49,6 @@ jobs:
         token_format: 'access_token'
         workload_identity_provider: 'projects/630162570845/locations/global/workloadIdentityPools/vas-github/providers/github-provider'
         service_account: 'github-actions-deploy@vas-qr.iam.gserviceaccount.com'
-      if: github.event_name != 'push'      
     # Alternative option - authentication via credentials json
     # - id: 'auth'
     #   uses: 'google-github-actions/auth@v0'
@@ -58,15 +57,13 @@ jobs:
 
     - name: Docker configuration
       run: |-
-        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-      if: github.event_name != 'push'         
+        echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://gcr.io      
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-      if: github.event_name != 'push'         
 
     # Build the Docker image
     - name: Build
@@ -75,13 +72,11 @@ jobs:
           --tag "gcr.io/vas-qr/$IMAGE_NAME:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
-      if: github.event_name != 'push'           
           .
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
         docker push "gcr.io/vas-qr/$IMAGE_NAME:$GITHUB_SHA"
-      if: github.event_name != 'push'         
     # Set up kustomize
     - name: Set up Kustomize
       run: |-
@@ -97,18 +92,17 @@ jobs:
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
-      if: github.event_name != 'push'         
+        
     - name: Google Chat Notification
       uses: Co-qn/google-chat-notification@releases/v1
       with:
         name: Micro front end Login Build
         url: https://chat.googleapis.com/v1/spaces/AAAAjJJUfOQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ktVwn_GKgw6P4yinwIsrhkaET2qVcuhK9XUApgB_HJs%3D
         status: ${{ job.status }}
-      if: github.event_name != 'push'
+
     - name: Google Chat Notification Pull Request
       uses: Co-qn/google-chat-notification@releases/v1
       with:
         name: Pull Request Micro front end Login
         url: https://chat.googleapis.com/v1/spaces/AAAAjJJUfOQ/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ktVwn_GKgw6P4yinwIsrhkaET2qVcuhK9XUApgB_HJs%3D
         status: ${{ job.status }}
-      if: github.event_name != 'pull_request'        
