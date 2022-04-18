@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --config config/webpack/webpack.dev.js",
-    "build": "webpack --config config/webpack/webpack.dev.js"
+    "build": "webpack --config config/webpack/webpack.prod.js"
   },
   "config": { 
     "path": "https://vas1.qr.liverpool.arr1aga.com/", 

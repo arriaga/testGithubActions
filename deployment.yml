@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: mf-login
-          image: gcr.io/vas-qr/mf/login
+          image: LOCATION-gcr.io/vas-qr/mf/login:TAG
           ports:
             - containerPort: 80
